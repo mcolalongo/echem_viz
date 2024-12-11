@@ -3,7 +3,7 @@
 import pandas as pd #lib for database management
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import cm
-import numpy as np
+import numpy as np, os
 
 class Echem:
 
@@ -14,7 +14,9 @@ class Echem:
         self.range = np.arange(self.cmin, self.cmax)
 
 
-
     def extractData(self):
-        self.df = pd.read_csv(self.f, sep=',')
-        return self.df
+        for i in self.f:
+            print(os.listdir())
+        # self.df = pd.read_csv(self.f, sep=',')
+        # return self.df
+    
