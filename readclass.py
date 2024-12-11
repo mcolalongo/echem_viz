@@ -14,9 +14,23 @@ class Echem:
         self.range = np.arange(self.cmin, self.cmax)
 
 
-    def extractData(self):
-        for i in self.f:
-            print(os.listdir())
-        # self.df = pd.read_csv(self.f, sep=',')
+    def plotDqDv(self):
+        self.fig, self.ax = plt.subplots(dpi=100, figsize=(4,3)) 
+        for j in self.range:
+            for i in os.listdir(self.f):
+                if (f"cycle_{j}.csv") in i:
+                    self.df = pd.read_csv(os.path.join(self.f, i), sep=',')
+                    self.ax.plot(self.df['E_V'], self.df['dCap_mAh_dE_V'])
+        # plt.show()
         # return self.df
     
+    def plotDqDvFilter(self):
+        self.ncycl = [6, 21]
+        self.color = cm.jet(np.linspace(0, 1, len(self.ncycl)))
+        self.fig, self.ax = plt.subplots(dpi=100) 
+        for n,j in enumerate(self.ncycl):
+            for i in os.listdir(self.f):
+                if (f"cycle_{j}.csv") in i:
+                    self.df = pd.read_csv(os.path.join(self.f, i), sep=',')
+                    self.ax.plot(self.df['E_V'], self.df['dCap_mAh_dE_V'], color=self.color[n])
+        # plt.show()
